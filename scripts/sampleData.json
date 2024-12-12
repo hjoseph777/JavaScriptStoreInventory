@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Milk",
+        "price": 1.50,
+        "quantity": 10,
+        "expirationDate": "2024-12-31"
+    },
+    {
+        "name": "Yogurt",
+        "price": 0.99,
+        "quantity": 20,
+        "expirationDate": "2024-11-15"
+    }
+]
