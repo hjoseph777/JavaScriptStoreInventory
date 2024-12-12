@@ -14,7 +14,18 @@ class ProductProperties {
     }
 }
 
+class PerishableProductProperties extends ProductProperties {
+    constructor(name, price, quantity, expirationDate) {
+        super(name, price, quantity);
+        this.expirationDate = expirationDate;
+    }
+
+    toString() {
+        return `${super.toString()}, Expiration Date: ${this.expirationDate}`;
+    }
+}
+
 // Example usage:
-const apple = new ProductProperties('Apple', 2.50, 50);
-console.log(apple.toString());
-console.log('Total Value:', apple.getTotalValue());
+const milk = new PerishableProductProperties('Milk', 1.50, 10, '2024-12-31');
+console.log(milk.toString());
+console.log('Total Value:', milk.getTotalValue());
