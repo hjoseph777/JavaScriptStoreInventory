@@ -74,6 +74,28 @@ document.getElementById('list-inventory').addEventListener('click', () => {
     }
 });
 
+document.getElementById('search-button').addEventListener('click', () => {
+    const searchName = document.getElementById('search-name').value.trim();
+    if (searchName) {
+        const product = store.inventory.find(product => product.name.toLowerCase() === searchName.toLowerCase());
+        const inventoryList = document.getElementById('inventory-list');
+        inventoryList.innerHTML = '';
+        if (product) {
+            const div = document.createElement('div');
+            div.className = 'inventory-item';
+            const span = document.createElement('span');
+            span.textContent = product.toString();
+            div.appendChild(span);
+            inventoryList.appendChild(div);
+        } else {
+            const div = document.createElement('div');
+            div.className = 'inventory-item';
+            div.textContent = 'Product not found';
+            inventoryList.appendChild(div);
+        }
+    }
+});
+
 function updateInventoryList() {
     const inventoryList = document.getElementById('inventory-list');
     inventoryList.innerHTML = '';
@@ -100,10 +122,25 @@ function showConfirmation() {
 function displayInventoryGrid() {
     const inventoryList = document.getElementById('inventory-list');
     inventoryList.innerHTML = '';
-    store.inventory.forEach(product => {
+    store.inventory.forEach((product, index) => {
         const div = document.createElement('div');
         div.className = 'inventory-item';
-        div.textContent = product.toString();
+        
+        const span = document.createElement('span');
+        span.textContent = product.toString();
+        
+        const button = document.createElement('button');
+        button.className = 'delete-button';
+        button.textContent = 'Delete';
+        button.addEventListener('click', () => {
+            store.inventory.splice(index, 1);
+            saveInventory();
+            displayInventoryGrid();
+            updateSummary();
+        });
+        
+        div.appendChild(span);
+        div.appendChild(button);
         inventoryList.appendChild(div);
     });
 }

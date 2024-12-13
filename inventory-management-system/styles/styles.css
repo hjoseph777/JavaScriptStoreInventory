@@ -113,6 +113,24 @@
     background-color: #444; /* Slightly lighter background for items */
     padding: 1em;
     border-radius: 8px;
+    position: relative;
+  }
+
+  .delete-button {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5em;
+    cursor: pointer;
+  }
+
+  #inventory-list .inventory-item:hover .delete-button {
+    display: block;
   }
 
   .button-group {
@@ -121,9 +139,11 @@
     margin-bottom: 20px;
 }
 
-.button-group button {
+.button-group button,
+.button-group input {
     flex: 1;
 }
+
 .button-group button:first-child {
     margin-right: auto;
 }
