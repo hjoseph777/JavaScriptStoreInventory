@@ -13,3 +13,20 @@ A simple inventory management system to manage perishable and non-perishable pro
 - [License](#license)
 
 ## Installation
+
+#Project Structure
+JavaScriptStoreInventory/
+├── inventory-management-system/
+│   ├── src/
+│   │   ├── classes/
+│   │   │   ├── Store.js
+│   │   │   ├── Product.js
+│   │   │   └── PerishableProduct.js
+│   │   ├── index.js
+│   ├── styles/
+│   │   └── styles.css
+├── index.html
+├── package.json
+├── README.md
+
+
