@@ -3,7 +3,7 @@
 ## Description
 A simple inventory management system to manage perishable and non-perishable products.
 
-## ![Inventory Management System](screenshots/inventory.png)
+![Inventory Management System](assets/images/inventorymanagement.png)
 
 ### Example
 
