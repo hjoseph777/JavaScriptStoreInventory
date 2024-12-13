@@ -10,7 +10,7 @@ class ProductProperties {
             throw new Error('Invalid quantity');
         }
         this.name = name;
-        this.price = price;
+        this.price = parseFloat(price).toFixed(2); // Ensure price is a decimal with two places
         this.quantity = quantity;
     }
 
@@ -19,7 +19,7 @@ class ProductProperties {
     }
 
     toString() {
-        return `Product: ${this.name}, Price: $${this.price.toFixed(2)}, Quantity: ${this.quantity}`;
+        return `Product: ${this.name}, Price: $${this.price}, Quantity: ${this.quantity}`;
     }
 }
 

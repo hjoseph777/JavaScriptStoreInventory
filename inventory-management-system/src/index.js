@@ -24,21 +24,29 @@ document.getElementById('product-form').addEventListener('submit', (event) => {
 });
 
 document.getElementById('list-inventory').addEventListener('click', () => {
-    fetch('scripts/sampleData.json')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
-                let product;
-                if (item.expirationDate) {
-                    product = new PerishableProductProperties(item.name, item.price, item.quantity, item.expirationDate);
-                } else {
-                    product = new ProductProperties(item.name, item.price, item.quantity);
-                }
-                store.addProduct(product);
-            });
-            displayInventoryGrid();
-        })
-        .catch(error => console.error('Error loading inventory:', error));
+    const inventoryList = document.getElementById('inventory-list');
+    const button = document.getElementById('list-inventory');
+    if (button.textContent === 'View Inventory') {
+        fetch('scripts/sampleData.json')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(item => {
+                    let product;
+                    if (item.expirationDate) {
+                        product = new PerishableProductProperties(item.name, item.price, item.quantity, item.expirationDate);
+                    } else {
+                        product = new ProductProperties(item.name, item.price, item.quantity);
+                    }
+                    store.addProduct(product);
+                });
+                displayInventoryGrid();
+                button.textContent = 'Hide Inventory';
+            })
+            .catch(error => console.error('Error loading inventory:', error));
+    } else {
+        inventoryList.innerHTML = '';
+        button.textContent = 'View Inventory';
+    }
 });
 
 function updateInventoryList() {
