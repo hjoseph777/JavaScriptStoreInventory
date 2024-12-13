@@ -127,3 +127,10 @@
 .button-group button:first-child {
     margin-right: auto;
 }
+
+.inventory-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    color: white;
+}
