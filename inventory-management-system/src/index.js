@@ -1,5 +1,6 @@
 import Store from './classes/Store.js';
 import PerishableProductProperties from './classes/PerishableProduct.js';
+import ProductProperties from './classes/Product.js';
 
 const store = new Store();
 
@@ -30,6 +31,7 @@ document.getElementById('list-inventory').addEventListener('click', () => {
         fetch('scripts/sampleData.json')
             .then(response => response.json())
             .then(data => {
+                store.inventory = []; // Clear existing inventory
                 data.forEach(item => {
                     let product;
                     if (item.expirationDate) {
