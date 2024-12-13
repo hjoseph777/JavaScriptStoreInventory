@@ -6,6 +6,8 @@ A simple inventory management system to manage perishable and non-perishable pro
 ## Installation
 
 ## Project Structure
+
+<pre>
 JavaScriptStoreInventory/
 ├── inventory-management-system/
 │   ├── src/
@@ -19,3 +21,4 @@ JavaScriptStoreInventory/
 ├── index.html
 ├── package.json
 ├── README.md
+</pre>
