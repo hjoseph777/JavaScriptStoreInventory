@@ -38,6 +38,7 @@ window.addEventListener('load', () => {
     updateSummary();
 });
 
+// Handle form submission to add a new product
 document.getElementById('product-form').addEventListener('submit', (event) => {
     event.preventDefault();
     const name = document.getElementById('name').value;
@@ -62,11 +63,10 @@ document.getElementById('product-form').addEventListener('submit', (event) => {
     updateSummary();
 });
 
+// Handle click event to toggle inventory display
 document.getElementById('list-inventory').addEventListener('click', () => {
     const inventoryList = document.getElementById('inventory-list');
     const button = document.getElementById('list-inventory');
-    if (button.textContent === 'View Inventory') {
-        displayInventoryGrid();
         button.textContent = 'Hide Inventory';
     } else {
         inventoryList.innerHTML = '';
