@@ -29,7 +29,7 @@ JavaScriptStoreInventory/
 </pre>
 
 
-#Basic Logic of the Code
+##Basic Logic of the Code
 
 1. **Initialization**:
    - On window load, the application checks if the inventory has been initialized in local storage.
@@ -55,24 +55,7 @@ JavaScriptStoreInventory/
    - Clicking the delete button removes the product from the store and updates the inventory list and summary.
 
 
-
-styles.css
--The CSS file for styling the application, including layout, colors, and responsive design
-
-index.js
--The main JavaScript file that initializes the application handles form submissions, updates the inventory list, and manages local storage.
-
-PerishableProduct.js
--The PerishableProductProperties class extends the ProductProperties class to include an expiration date for perishable products. It overrides the toString method to include the expiration date in the string representation.
-
-Store.js
--The Store class manages the inventory of products. It provides methods to add, remove, search, and list products, as well as calculate the total value of the inventory.
-
--index.html: The main HTML file for the application.
-
--classes: The directory containing the JavaScript classes (Store.js, Product.js, PerishableProduct.js).
-
-Features
+##Features
 -Add perishable and non-perishable products to the inventory.
 -View the inventory list.
 -Remove products from the inventory.
