@@ -69,3 +69,6 @@ JavaScriptStoreInventory/
  - Total Price with additional 15% discount:
  - Persist inventory data using local storage.
 
+## Flowchart 
+
+![Flowchart logic System](assets/images/inventorydiagram.png)
