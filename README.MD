@@ -29,7 +29,7 @@ JavaScriptStoreInventory/
 </pre>
 
 
-##Basic Logic of the Code
+## Basic Logic of the Code
 
 1. **Initialization**:
    - On window load, the application checks if the inventory has been initialized in local storage.
@@ -55,7 +55,7 @@ JavaScriptStoreInventory/
    - Clicking the delete button removes the product from the store and updates the inventory list and summary.
 
 
-##Features
+## Features
 -Add perishable and non-perishable products to the inventory.
 -View the inventory list.
 -Remove products from the inventory.
