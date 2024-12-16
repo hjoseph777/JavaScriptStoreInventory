@@ -56,15 +56,16 @@ JavaScriptStoreInventory/
 
 
 ## Features
--Add perishable and non-perishable products to the inventory.
--View the inventory list.
--Remove products from the inventory.
--Search for products in the inventory.
--inventory grid Display quantity and total cost of items in the inventory.
--Main menu
-Total Quantity: 
-Total Gross Price: 0
-Total Price With Perishable Discount:
-Total Price with additional 15% discount:
--Persist inventory data using local storage.
+- Add perishable and non-perishable products to the inventory.
+- View the inventory list.
+- Remove products from the inventory.
+- Search for products in the inventory.
+- inventory grid Display quantity and total cost of items in the inventory.
+
+## Main menu
+ - Total Quantity: 
+ - Total Gross Price: 0
+ - Total Price With Perishable Discount:
+ - Total Price with additional 15% discount:
+ - Persist inventory data using local storage.
 
