@@ -8,7 +8,7 @@ const store = new Store();
 window.addEventListener('load', async () => {
     const initialized = localStorage.getItem('initialized');
 
-    if (!initialized) {
+    if (initialized) {
         // Clear local storage to force reload of sample data
         localStorage.clear();
 
