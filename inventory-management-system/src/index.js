@@ -7,8 +7,12 @@ const store = new Store();
 // Load inventory from local storage
 window.addEventListener('load', async () => {
     const initialized = localStorage.getItem('initialized');
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.id = 'loading-indicator';
+    loadingIndicator.textContent = 'Loading...';
+    document.getElementById('app').appendChild(loadingIndicator);
 
-    if (initialized) {
+    if (!initialized) {
         // Clear local storage to force reload of sample data
         localStorage.clear();
 
@@ -51,7 +55,13 @@ window.addEventListener('load', async () => {
             });
         }
     }
-    // Do not call updateSummary here to keep values zero initially
+
+    // Automatically display the inventory grid after loading data
+    await displayInventoryGrid();
+    document.getElementById('list-inventory').textContent = 'Hide Inventory'; // Update button text
+    updateSummary();
+
+    loadingIndicator.remove();
 });
 
 document.getElementById('product-form').addEventListener('submit', (event) => {
