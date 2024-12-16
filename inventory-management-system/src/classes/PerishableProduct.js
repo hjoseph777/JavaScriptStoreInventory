@@ -1,17 +1,14 @@
-import ProductProperties from './Product.js';
+import Product from './Product.js';
 
-class PerishableProductProperties extends ProductProperties {
-    constructor(name, price, quantity, expirationDate) {
-        super(name, price, quantity);
-        if (!expirationDate || isNaN(Date.parse(expirationDate))) {
-            throw new Error('Invalid expiration date');
-        }
+class PerishableProduct extends Product {
+    constructor(name, price, quantity, expirationDate, discount = 0) {
+        super(name, price, quantity, discount);
         this.expirationDate = expirationDate;
     }
 
     toString() {
-        return `${super.toString()}, Expiration Date: ${this.expirationDate}`;
+        return `Product: ${this.name}, Price: $${this.price.toFixed(2)}, Quantity: ${this.quantity}, Expiration Date: ${this.expirationDate}, Discount: ${isNaN(this.discount) ? 'N/A' : (this.discount * 100).toFixed(0)}%`;
     }
 }
 
-export default PerishableProductProperties;
+export default PerishableProduct;

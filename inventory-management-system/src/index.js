@@ -4,38 +4,54 @@ import ProductProperties from './classes/Product.js';
 
 const store = new Store();
 
-// Sample inventory data
-const sampleInventory = [
-    new PerishableProductProperties('Milk', 1.50, 10, '2024-12-31'),
-    new PerishableProductProperties('Yogurt', 0.99, 20, '2024-11-15'),
-    new ProductProperties('Bread', 2.50, 15),
-    new ProductProperties('Butter', 3.00, 5)
-];
-
 // Load inventory from local storage
-window.addEventListener('load', () => {
-    const savedInventory = localStorage.getItem('inventory');
+window.addEventListener('load', async () => {
     const initialized = localStorage.getItem('initialized');
 
     if (!initialized) {
-        // Add sample inventory to local storage
-        sampleInventory.forEach(product => store.addProduct(product));
-        saveInventory();
-        localStorage.setItem('initialized', 'true');
-    } else if (savedInventory) {
-        const data = JSON.parse(savedInventory);
-        data.forEach(item => {
-            let product;
-            if (item.expirationDate) {
-                product = new PerishableProductProperties(item.name, item.price, item.quantity, item.expirationDate);
-            } else {
-                product = new ProductProperties(item.name, item.price, item.quantity);
+        // Clear local storage to force reload of sample data
+        localStorage.clear();
+
+        // Fetch sample inventory from sampleData.json
+        try {
+            const response = await fetch('inventory-management-system/data/sampleData.json');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-            store.addProduct(product);
-        });
+            const sampleInventory = await response.json();
+            console.log('Sample Inventory Loaded:', sampleInventory);
+
+            // Add sample inventory to local storage
+            sampleInventory.forEach(item => {
+                let product;
+                if (item.expirationDate) {
+                    product = new PerishableProductProperties(item.name, item.price, item.quantity, item.expirationDate, item.discount);
+                } else {
+                    product = new ProductProperties(item.name, item.price, item.quantity, item.discount);
+                }
+                store.addProduct(product);
+            });
+            saveInventory();
+            localStorage.setItem('initialized', 'true');
+        } catch (error) {
+            console.error('Failed to fetch sample inventory:', error);
+        }
+    } else {
+        const savedInventory = localStorage.getItem('inventory');
+        if (savedInventory) {
+            const data = JSON.parse(savedInventory);
+            data.forEach(item => {
+                let product;
+                if (item.expirationDate) {
+                    product = new PerishableProductProperties(item.name, item.price, item.quantity, item.expirationDate, item.discount);
+                } else {
+                    product = new ProductProperties(item.name, item.price, item.quantity, item.discount);
+                }
+                store.addProduct(product);
+            });
+        }
     }
-    updateInventoryList();
-    updateSummary();
+    // Do not call updateSummary here to keep values zero initially
 });
 
 document.getElementById('product-form').addEventListener('submit', (event) => {
@@ -44,12 +60,13 @@ document.getElementById('product-form').addEventListener('submit', (event) => {
     const price = parseFloat(document.getElementById('price').value);
     const quantity = parseInt(document.getElementById('quantity').value);
     const expirationDate = document.getElementById('expirationDate').value;
+    const discount = parseFloat(document.getElementById('discount').value) / 100;
 
     let product;
     if (expirationDate) {
-        product = new PerishableProductProperties(name, price, quantity, expirationDate);
+        product = new PerishableProductProperties(name, price, quantity, expirationDate, discount);
     } else {
-        product = new ProductProperties(name, price, quantity);
+        product = new ProductProperties(name, price, quantity, discount);
     }
 
     store.addProduct(product);
@@ -62,16 +79,26 @@ document.getElementById('product-form').addEventListener('submit', (event) => {
     updateSummary();
 });
 
-document.getElementById('list-inventory').addEventListener('click', () => {
+document.getElementById('list-inventory').addEventListener('click', async () => {
     const inventoryList = document.getElementById('inventory-list');
     const button = document.getElementById('list-inventory');
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.id = 'loading-indicator';
+    loadingIndicator.textContent = 'Loading...';
+    document.getElementById('app').appendChild(loadingIndicator);
+
     if (button.textContent === 'View Inventory') {
-        displayInventoryGrid();
+        console.log('Displaying Inventory Grid');
+        await displayInventoryGrid();
         button.textContent = 'Hide Inventory';
+        updateSummary(); // Update summary when inventory is displayed
     } else {
         inventoryList.innerHTML = '';
         button.textContent = 'View Inventory';
+        resetSummary(); // Reset summary when inventory is hidden
     }
+
+    loadingIndicator.remove();
 });
 
 document.getElementById('search-button').addEventListener('click', () => {
@@ -119,7 +146,7 @@ function showConfirmation() {
     setTimeout(() => confirmation.remove(), 2000);
 }
 
-function displayInventoryGrid() {
+async function displayInventoryGrid() {
     const inventoryList = document.getElementById('inventory-list');
     inventoryList.innerHTML = '';
     store.inventory.forEach((product, index) => {
@@ -127,7 +154,14 @@ function displayInventoryGrid() {
         div.className = 'inventory-item';
         
         const span = document.createElement('span');
-        span.textContent = product.toString();
+        span.innerHTML = `
+            <span class="dot ${product.expirationDate ? 'yellow-dot' : 'green-dot'}"></span>
+            Product: ${product.name}, 
+            Price: $${product.price.toFixed(2)}, 
+            Quantity: ${product.quantity}, 
+            ${product.expirationDate ? `Expiration Date: ${product.expirationDate}, ` : ''}
+            Discount: ${(product.discount * 100).toFixed(0)}%
+        `;
         
         const button = document.createElement('button');
         button.className = 'delete-button';
@@ -151,8 +185,19 @@ function saveInventory() {
 
 function updateSummary() {
     const totalQuantity = store.inventory.reduce((sum, product) => sum + product.quantity, 0);
-    const totalCost = store.inventory.reduce((sum, product) => sum + product.getTotalValue(), 0).toFixed(2);
+    const totalGrossPrice = store.inventory.reduce((sum, product) => sum + (product.price * product.quantity), 0).toFixed(2);
+    const totalPriceWithPerishableDiscount = store.inventory.reduce((sum, product) => sum + product.getTotalValue(), 0).toFixed(2);
+    const totalNetPriceWithDiscount = (totalPriceWithPerishableDiscount * 0.85).toFixed(2);
 
     document.getElementById('total-quantity').textContent = totalQuantity;
-    document.getElementById('total-cost').textContent = totalCost;
+    document.getElementById('price-Without-Discount').textContent = totalGrossPrice;
+    document.getElementById('Total-Price-With-Perishable-Discount').textContent = totalPriceWithPerishableDiscount;
+    document.getElementById('total-net-price-with-discount').textContent = totalNetPriceWithDiscount;
+}
+
+function resetSummary() {
+    document.getElementById('total-quantity').textContent = '0';
+    document.getElementById('price-Without-Discount').textContent = '0.00';
+    document.getElementById('Total-Price-With-Perishable-Discount').textContent = '0.00';
+    document.getElementById('total-net-price-with-discount').textContent = '0.00';
 }

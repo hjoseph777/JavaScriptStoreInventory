@@ -12,8 +12,13 @@
         <div class="card">
             <div class="inventory-summary">
                 <p>Total Quantity: <span id="total-quantity">0</span></p>
-                <p>Total Cost: $<span id="total-cost">0.00</span></p>
+                <br>
+                <p>Total Gross Price: $<span id="price-Without-Discount">0.00</span></p>
+                <p>Total Price With Perishable Discount: $<span id="Total-Price-With-Perishable-Discount">0.00</span></p>
+                <p>Total Price with additional 15% discount: $<span id="total-net-price-with-discount">0.00</span></p>
             </div>
+        </div>
+        <div class="card">
             <h2 style="color: white;">Inventory</h2>
             <p>Total Products: <span id="total-products">0</span></p>
             <div class="button-group">
@@ -27,6 +32,7 @@
                 <input type="number" id="price" placeholder="Price" step="0.01" required>
                 <input type="number" id="quantity" placeholder="Quantity" required>
                 <input type="date" id="expirationDate" placeholder="Expiration Date">
+                <input type="number" id="discount" placeholder="Discount (%)" step="0.01">
             </form>
             <ul id="inventory-list"></ul>
         </div>

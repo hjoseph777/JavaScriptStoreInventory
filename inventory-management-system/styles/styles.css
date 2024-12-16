@@ -60,6 +60,7 @@
     margin: 1em 0;
     background-color: #333;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .read-the-docs {
@@ -149,8 +150,35 @@
 }
 
 .inventory-summary {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1em;
-    color: white;
+    text-align: right;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    color: #333;
+}
+
+.inventory-summary p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.inventory-summary span {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.yellow-dot {
+    background-color: yellow;
+}
+
+.green-dot {
+    background-color: green;
 }

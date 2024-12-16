@@ -1,7 +1,7 @@
 [
     {
         "name": "Milk",
-        "price": 1.51,
+        "price": 1.50,
         "quantity": 10,
         "expirationDate": "2024-12-31",
         "discount": 0.10
@@ -17,12 +17,30 @@
         "name": "Bread",
         "price": 2.50,
         "quantity": 15,
-        "discount": 0.00
+        "expirationDate": "2024-11-15",
+        "discount": 0.10
     },
     {
         "name": "Butter",
         "price": 3.00,
         "quantity": 5,
+        "expirationDate": "2024-11-15",
+        "discount": 0.10
+    },
+
+
+    {
+        "name": "rice",
+        "price": 3.00,
+        "quantity": 5,
         "discount": 0.00
-    }
+    },
+
+     
+    {
+    "name": "pasta",
+    "price": 1.00,
+    "quantity": 5,
+    "discount": 0.00
+   }
 ]
