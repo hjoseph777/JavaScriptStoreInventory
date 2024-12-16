@@ -29,7 +29,7 @@ JavaScriptStoreInventory/
 </pre>
 
 
-### Basic Logic of the Code
+#Basic Logic of the Code
 
 1. **Initialization**:
    - On window load, the application checks if the inventory has been initialized in local storage.
@@ -54,50 +54,13 @@ JavaScriptStoreInventory/
    - Each product in the inventory list has a delete button.
    - Clicking the delete button removes the product from the store and updates the inventory list and summary.
 
-### Flowchart
-
-```mermaid
-flowchart TD
-    A[Window Load] --> B{Initialized?}
-    B -->|No| C[Fetch Sample Data]
-    C --> D[Add Sample Data to Store]
-    D --> E[Save Inventory to Local Storage]
-    B -->|Yes| F[Load Inventory from Local Storage]
-    E --> G[Display Inventory]
-    F --> G[Display Inventory]
-
-    H[Add Product Form Submit] --> I[Capture Product Details]
-    I --> J[Add Product to Store]
-    J --> K[Update Inventory List]
-    K --> L[Save Inventory to Local Storage]
-    L --> M[Show Confirmation]
-
-    N[View Inventory Button Click] --> O[Show Loading Indicator]
-    O --> P[Display Inventory Grid]
-    P --> Q[Update Summary]
-    Q --> R[Hide Loading Indicator]
-
-    S[Search Button Click] --> T[Capture Search Name]
-    T --> U[Find Product in Store]
-    U --> V{Product Found?}
-    V -->|Yes| W[Display Product]
-    V -->|No| X[Display "Product Not Found"]
-
-    Y[Delete Button Click] --> Z[Remove Product from Store]
-    Z --> AA[Update Inventory List]
-    AA --> AB[Save Inventory to Local Storage]
-    AB --> AC[Update Summary]
-```
-
-This flowchart provides a visual representation of the basic logic of the code, showing the main actions and decision points in the application.
-
 
 
 styles.css
 -The CSS file for styling the application, including layout, colors, and responsive design
 
 index.js
--The main JavaScript file that initializes the application, handles form submissions, updates the inventory list, and manages local storage.
+-The main JavaScript file that initializes the application handles form submissions, updates the inventory list, and manages local storage.
 
 PerishableProduct.js
 -The PerishableProductProperties class extends the ProductProperties class to include an expiration date for perishable products. It overrides the toString method to include the expiration date in the string representation.
@@ -114,6 +77,11 @@ Features
 -View the inventory list.
 -Remove products from the inventory.
 -Search for products in the inventory.
--Display total quantity and total cost of items in the inventory.
+-inventory grid Display quantity and total cost of items in the inventory.
+-Main menu
+Total Quantity: 
+Total Gross Price: 0
+Total Price With Perishable Discount:
+Total Price with additional 15% discount:
 -Persist inventory data using local storage.
 
