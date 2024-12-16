@@ -17,7 +17,7 @@
         "name": "Bread",
         "price": 2.50,
         "quantity": 15,
-        "discount": 0.00
+        "discount": 0.00 
     },
     {
         "name": "Butter",
